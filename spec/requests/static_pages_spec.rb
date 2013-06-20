@@ -13,8 +13,14 @@ describe "Static pages" do
 
     it "TEST TITLE HOME should have the title 'Home'" do
       visit '/static_pages/home'
-      expect(page).to have_title "#{base_title} | Home"
+      expect(page).to have_title "Ruby on Rails Tutorial"
     end
+
+    it "should not have a custom page title" do
+      visit '/static_pages/home'
+      page.should_not have_selector('title', :text => '| Home')
+    end
+
   end
 
   describe "Help page" do
