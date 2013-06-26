@@ -4,49 +4,49 @@ describe "Static pages" do
   
   subject { page }
 
+  shared_examples_for "all static pages" do
+    it { should have_selector('h1', text: heading)}
+    it { expect(page).to have_title "#{full_title(page_title)}"}
+  end
+
   describe "Home page" do
-    before { visit root_path }
-    
-    it {should have_selector('h1', text: 'Sample App')}
-    it {expect(page).to have_title "#{full_title('')}"
-    }
-    it {should_not have_selector('title', text: '| Home')
-    }
+    before {visit root_path }
+    let(:heading) {'Sample App'}
+    let(:page_title) {''}
+    it_should_behave_like "all static pages"
+    it {should_not have_selector('title', text: '| Home')}
   end
 
   describe "Help page" do
     before {visit help_path}
-    it {should have_selector('h1', text: 'Help')
-    }
-    it {expect(page).to have_title "#{full_title('Help')}"
-    }
+    let(:heading) {'Help'}
+    let(:page_title) {'Help'}
+    it_should_behave_like "all static pages"   
   end
 
   describe "About page" do
     before { visit about_path}
-
-    it { should have_selector('h1', text:'About')}
-    it {expect(page).to have_title "#{full_title('About Us')}"
-    } 
+    let(:heading) {'About'}
+    let(:page_title) {'About Us'}
+    it_should_behave_like "all static pages" 
   end  
-
-  #  it "TEST H1 ABOUT should have the h1 'About Us'" do
-  #    visit about_path
-  #    page.should have_selector('h1', text: 'About Us')
-  #  end
-
-  #  it "TEST TITLE ABOUT should have the title 'About Us'" do
-  #    visit about_path
-      #expect(page).to have_title "#{base_title} | About Us"
-  #  end
-  #end
 
   describe "Contact" do
     before { visit contact_path}
-
-    it { should have_selector('h1', text:'Contact')}
-    it {expect(page).to have_title "#{full_title('Contact')}"
-    } 
+    let(:heading) {'Contact'}
+    let(:page_title) {'Contact'}
+    it_should_behave_like "all static pages" 
   end  
+
+  it "should have the right links on the layout" do 
+    visit root_path
+    click_link "About"
+    expect(page).to have_title "#{full_title('About Us')}"    
+    click_link "Help"
+    expect(page).to have_title "#{full_title('Help')}"
+    click_link "Contact"
+    expect(page).to have_title "#{full_title('Contact')}"
+
+  end
 
 end #last end for describe block
