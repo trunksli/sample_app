@@ -51,6 +51,7 @@ describe "UserPages" do
           it {expect(page).to have_title "#{full_title(user.name)}"}
           it {expect(page).to have_title(user.name)}
           it {should have_selector('div.alert.alert-success', text:'Welcome')}
+          it {should have_link('Sign out')} #have link doesn't work
         end 
 
       end #visit with valid info
