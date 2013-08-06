@@ -16,3 +16,4 @@ def sign_in(user)
   	click_button "Sign in"
   	cookies[:remember_token] = user.remember_token
 end
+
