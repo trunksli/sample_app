@@ -9,4 +9,9 @@ FactoryGirl.define do
 			admin true
 		end
 	end
+
+	factory :micropost do
+		content "Filler for micropost. You can do it!"
+		user
+	end
 end#factory girl
