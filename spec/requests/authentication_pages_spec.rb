@@ -91,6 +91,16 @@ describe "Authentication" do
           it { expect(page).to have_title('Sign in')}
         end
 
+        describe "visiting the following page" do
+          before { visit following_user_path(user)}
+          it { expect(page).to have_title('Sign in')}          
+        end
+
+        describe "visiting the followers page" do
+          before { visit followers_user_path(user)}
+          it { expect(page).to have_title('Sign in')}          
+        end
+
       end#Users controllers
 
       describe "in the microposts controller" do
@@ -105,6 +115,18 @@ describe "Authentication" do
           specify { response.should redirect_to(signin_path)}
         end
       end
+
+      describe "in the Relationships controller" do
+        describe "submitting to the create action" do
+          before { post relationships_path}
+          specify { response.should redirect_to(signin_path)}
+        end
+
+        describe "submitting to the destroy action" do
+          before{ delete relationship_path(1) }
+          specify { response.should redirect_to(signin_path)}
+        end
+      end#relationshisp controller
 
     end#non-signedin
 
@@ -133,9 +155,10 @@ describe "Authentication" do
       describe "submitting a delete request to the User#destroyaction" do
         before { delete user_path(user)}
         specify { response.should redirect_to(root_url)}
-      end
-           
+      end      
     end  
+
+
 
   end#authorization
 
